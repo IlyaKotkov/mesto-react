@@ -4,9 +4,9 @@ function PopupWithForm(props) {
 
   
   return (
-        <div className={props.isOpen ? `popup popup_type${props.name} "popup_opened"` : `popup popup_type${props.name}`}>
+        <div className={`popup${props.isOpen ? ' popup popup_opened' : ''}`}>
         <div className="popup__container">
-          <button className="popup__closed" type="button" />
+          <button className="popup__closed" type="button"  onClick={props.onClose}/>
           <h2 className="popup__editHeader">{props.title}</h2>
           <form className="popup__form" name={props.name} noValidate>
           <div className="popup__edit">

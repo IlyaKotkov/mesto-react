@@ -5,7 +5,9 @@ import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
 import { useState } from "react";
 
+
 function App() {
+
 
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -22,6 +24,12 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
+  const closeAllPopups = () => {
+    setIsEditProfilePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+  }
+
   return (
     <div className="page">
       <Header />
@@ -36,7 +44,8 @@ function App() {
         name="edit"
         title="Редактировать профиль"
         submit="Сохранить"
-        isOpen={isEditProfilePopupOpen}       
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
       >
         <>
           <input name="name" id="card-popup-name-profile"
@@ -59,13 +68,14 @@ function App() {
           />
           <span className="card-popup-job-error popup__error" />
         </>
-      </PopupWithForm> 
-     
+      </PopupWithForm>
+
       <PopupWithForm
         name="add"
         title="Редактировать профиль"
         submit="Сохранить"
         isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
       >
         <input
           name="name"
@@ -90,6 +100,25 @@ function App() {
         <span className="card-popup-url-error popup__error" />
       </PopupWithForm>
 
+      <PopupWithForm
+        name="editAvatar"
+        title="Обновить аватар"
+        submit="Сохранить"
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
+      >
+        <input
+          name="avatarInput"
+          id="avatar-popup-url"
+          className="popup__input popup__input_type_url"
+          type="url"
+          placeholder="ссылка на аватар"
+          required=""
+        />
+        <span className="avatar-popup-url-error popup__error" />
+
+      </PopupWithForm>
+
 
 
       <ImagePopup />
@@ -109,31 +138,6 @@ function App() {
           </form>
         </div>
       </div> */}
-
-      <div className="popup popup_type_editAvatar">
-        <div className="popup__container">
-          <button className="popup__closed" type="button" aria-label="Закрыть" />
-          <h3 className="popup__editHeader">Обновить аватар</h3>
-          <form className="popup__form" id="editAvatarForm" name="editAvatarForm">
-            <div className="popup__edit">
-              <label className="popup__label">
-                <input
-                  name="avatarInput"
-                  id="avatar-popup-url"
-                  className="popup__input popup__input_type_url"
-                  type="url"
-                  placeholder="ссылка на аватар"
-                  required=""
-                />
-                <span className="avatar-popup-url-error popup__error" />
-              </label>
-            </div>
-            <button className="popup__submit" type="submit">
-              Сохранить
-            </button>
-          </form>
-        </div>
-      </div>
     </div>
   );
 }
