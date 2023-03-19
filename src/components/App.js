@@ -5,7 +5,6 @@ import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
 import { useState } from "react";
 
-
 export default function App() {
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -49,7 +48,6 @@ export default function App() {
       <PopupWithForm
         name="edit"
         title="Редактировать профиль"
-        submit="Сохранить"
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
       >
@@ -79,7 +77,6 @@ export default function App() {
       <PopupWithForm
         name="add"
         title="Редактировать профиль"
-        submit="Сохранить"
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
       >
@@ -109,7 +106,6 @@ export default function App() {
       <PopupWithForm
         name="editAvatar"
         title="Обновить аватар"
-        submit="Сохранить"
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
       >
@@ -122,10 +118,7 @@ export default function App() {
           required=""
         />
         <span className="avatar-popup-url-error popup__error" />
-
       </PopupWithForm>
-
-
 
       <ImagePopup
         onClose={closeAllPopups}

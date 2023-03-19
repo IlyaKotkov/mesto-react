@@ -1,4 +1,3 @@
-
 export default function Card(card) {
 
     const handleClick = () => {
