@@ -6,12 +6,16 @@ import PopupWithForm from "./PopupWithForm";
 import { useState } from "react";
 
 
-function App() {
+export default function App() {
 
-
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null)
+
+  const handleCardClick = (card) => {
+    setSelectedCard(card)
+  }
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -28,6 +32,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard(null)
   }
 
   return (
@@ -37,6 +42,7 @@ function App() {
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
+        onCardClick={handleCardClick}
       />
       <Footer />
 
@@ -121,7 +127,10 @@ function App() {
 
 
 
-      <ImagePopup />
+      <ImagePopup
+        onClose={closeAllPopups}
+        card={selectedCard}
+      />
 
       {/* <div className="popup popup_type_delete">
         <div className="popup__container">
@@ -138,8 +147,9 @@ function App() {
           </form>
         </div>
       </div> */}
+
     </div>
   );
 }
 
-export default App;
+

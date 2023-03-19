@@ -1,16 +1,13 @@
-
 import logo from '../images/logo.svg';
 
-function Header() {
-    return(
-        <header className="header">
-        <img
-          className="header__logo"
-          src={logo}
-          alt="логотип сайта 'Mesto'"
-        />
-      </header>
-    )
+export default function Header() {
+  return (
+    <header className="header">
+      <img
+        className="header__logo"
+        src={logo}
+        alt="логотип сайта 'Mesto'"
+      />
+    </header>
+  )
 }
-
-export default Header
