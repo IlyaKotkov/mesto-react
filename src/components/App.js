@@ -3,6 +3,7 @@ import Main from "./Main";
 import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
+import EditProfilePopup from "./EditProfilePopup";
 import {useEffect, useState} from 'react';
 import api from '../utils/Api';
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
@@ -29,15 +30,10 @@ export default function App() {
     ])
       .then((values) => {
         setCurrentUser(values[0])
-        setCards(...values[1])
+        setCards([...values[1]])
       })
       .catch(err => console.log(err))
   }, []);
-
-
-
-      
-   
 
   const handleCardClick = (card) => {
     setSelectedCard(card)
@@ -54,6 +50,13 @@ export default function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
+  const handleUpdateUser = (data) => {
+    api.editUserInfo(data).then(updateUser => {
+      setCurrentUser(updateUser)
+      closeAllPopups()
+    })
+  }
+
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
@@ -68,6 +71,13 @@ export default function App() {
     });
   }
 
+  function handleCardDelete(card) {
+    api.deleteCard(card._id).then(() => {
+      setCards((state) => state.filter((c) => c._id !== card._id ))
+      closeAllPopups()
+    })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
@@ -79,37 +89,15 @@ export default function App() {
         onAddPlace={handleAddPlaceClick}
         onCardClick={handleCardClick}
         onCardLike={handleCardLike}
+        onCardDelete={handleCardDelete}
       />
       <Footer />
 
-      <PopupWithForm
-        name="edit"
-        title="Редактировать профиль"
-        isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
-      >
-        <>
-          <input name="name" id="card-popup-name-profile"
-            className="popup__input popup__input_type_name"
-            type="text"
-            placeholder="Имя"
-
-            required
-          />
-          <span className="card-popup-name-profile-error popup__error" />
-
-          <input
-            name="about"
-            id="card-popup-job"
-            className="popup__input popup__input_type_job"
-            type="text"
-            placeholder="Деятельность"
-
-            required
-          />
-          <span className="card-popup-job-error popup__error" />
-        </>
-      </PopupWithForm>
+      <EditProfilePopup
+      isOpen={isEditProfilePopupOpen} 
+      onClose={closeAllPopups}
+      onUpdateUser={handleUpdateUser}
+      />
 
       <PopupWithForm
         name="add"

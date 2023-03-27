@@ -1,27 +1,11 @@
-import {useEffect, useState, useContext} from 'react';
+import { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import api from '../utils/Api';
 import Card from './Card';
 
-function Main(props) {
+function Main({cards, onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardLike, onCardDelete}) {
 
-  const [cards, setCards] = useState([])
+  
   const currentUser = useContext(CurrentUserContext)
-
-  useEffect(() => {
-      api.getInitialCards()
-      .then((data) => {
-        setCards(
-          data.map((data) => ({
-            likes: data.likes,
-            name: data.name,
-            link: data.link,
-            cardId: data._id
-          }))
-        )
-      })
-      .catch(err => console.log(err))
-  }, [])
 
 return (
     <main className="page__container">
@@ -35,14 +19,14 @@ return (
           <button
             className="profile__editAvatarButton"
             type="button"
-            onClick={props.onEditAvatar}
+            onClick={onEditAvatar}
           />
           <div className="profile__info">
             <h1 className="profile__name" >{currentUser.name}</h1>
             <button
               className="profile__editButton"
               type="button"
-              onClick={props.onEditProfile}
+              onClick={onEditProfile}
               aria-label="Редактировать"
             />
             <p className="profile__description">{currentUser.about}</p>
@@ -51,7 +35,7 @@ return (
         <button
           className="profile__addButton"
           type="button"
-          onClick={props.onAddPlace}
+          onClick={onAddPlace}
           aria-label="Добавить"
         />
       </section>
@@ -59,7 +43,7 @@ return (
       <section className="elements">
         {
           cards.map((card) => (
-            <Card key={card._id} card={card}  onCardClick={props.onCardClick} onCardLike={props.onCardLike} />
+            <Card key={card._id} card={card}  onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete} />
           ))
         }
       </section>
