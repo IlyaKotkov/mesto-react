@@ -31,9 +31,6 @@ export default function Card({card, onCardClick, onCardLike, onCardDelete}) {
                     <span className="element__likeNumber">{card.likes.lenght}</span>
                 </div>
             </div>
-
         </article>
-
     )
-
 }

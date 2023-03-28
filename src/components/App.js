@@ -3,7 +3,7 @@ import Main from "./Main";
 import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import api from '../utils/Api';
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditAvatarPopup from "./EditAvatarPopup";
@@ -68,92 +68,74 @@ export default function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
     api.setLike(card._id, !isLiked).then((newCard) => {
-        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
     })
-    .catch(err => console.log(err))
+      .catch(err => console.log(err))
   }
 
   function handleCardDelete(card) {
     api.deleteCard(card._id).then(() => {
-      setCards((state) => state.filter((c) => c._id !== card._id ))
+      setCards((state) => state.filter((c) => c._id !== card._id))
       closeAllPopups()
     })
-    .catch(err => console.log(err))
+      .catch(err => console.log(err))
   }
 
-  const handleUpdateAvatar= (data) => {
+  const handleUpdateAvatar = (data) => {
     api.editAvatar(data).then(updateUser => {
       setCurrentUser(updateUser)
       closeAllPopups()
     })
-    .catch(err => console.log(err))
+      .catch(err => console.log(err))
   }
 
-  const handleAddPlace= (data) => {
+  const handleAddPlace = (data) => {
     api.addCard(data).then(newCard => {
       setCards([newCard, ...cards]);
-      closeAllPopups() 
+      closeAllPopups()
     })
-    .catch(err => console.log(err))
+      .catch(err => console.log(err))
   }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-    <div className="page">
-      <Header />
-      <Main
-        cards={cards}
-        onEditAvatar={handleEditAvatarClick}
-        onEditProfile={handleEditProfileClick}
-        onAddPlace={handleAddPlaceClick}
-        onCardClick={handleCardClick}
-        onCardLike={handleCardLike}
-        onCardDelete={handleCardDelete}
-      />
-      <Footer />
+      <div className="page">
+        <Header />
+        <Main
+          cards={cards}
+          onEditAvatar={handleEditAvatarClick}
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
+        />
+        <Footer />
 
-      <EditProfilePopup
-      isOpen={isEditProfilePopupOpen} 
-      onClose={closeAllPopups}
-      onUpdateUser={handleUpdateUser}
-      />
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
+        />
 
-      <EditAvatarPopup
-       isOpen={isEditAvatarPopupOpen} 
-       onClose={closeAllPopups}
-       onUpdateAvatar={handleUpdateAvatar} 
-      />
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+        />
 
-      <AddPlacePopup
-        isOpen={isAddPlacePopupOpen} 
-        onClose={closeAllPopups}
-        onAddPlace={handleAddPlace}
-      />
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onAddPlace={handleAddPlace}
+        />
 
-      <ImagePopup
-        onClose={closeAllPopups}
-        card={selectedCard}
-      />
+        <ImagePopup
+          onClose={closeAllPopups}
+          card={selectedCard}
+        />
 
-      {/* <div className="popup popup_type_delete">
-        <div className="popup__container">
-          <button className="popup__closed" type="button" aria-label="Закрыть" />
-          <h3 className="popup__editHeader">Вы уверены?</h3>
-          <form
-            className="popup__form"
-            id="confirmationForm"
-            name="confirmationForm"
-          >
-            <button className="popup__submit" type="submit">
-              Да
-            </button>
-          </form>
-        </div>
-      </div> */}
-
-    </div>
+      </div>
     </CurrentUserContext.Provider>
   );
 }
-
-

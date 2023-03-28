@@ -83,7 +83,7 @@ class Api {
         });
         return this._response(res);
     };
-    
+
 }
 
 const api = new Api({

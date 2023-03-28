@@ -5,19 +5,16 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 
     const avatarRef = useRef()
 
-
-
     function handleSubmit(e) {
         e.preventDefault();
-      
         onUpdateAvatar(
-           avatarRef.current.value
+            avatarRef.current.value
         );
-      } 
+    }
 
-      useEffect(() => {
+    useEffect(() => {
         avatarRef.current.value = ''
-      })
+    })
 
     return (
         <PopupWithForm
