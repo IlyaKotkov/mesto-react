@@ -28,7 +28,7 @@ export default function Card({card, onCardClick, onCardLike, onCardDelete}) {
                 <h2 className="element__title">{card.name}</h2>
                 <div className="element__likes">
                     <button className={isLiked ? "element__likeButton element__likeButton_active" : "element__likeButton"} onClick={handleLikeClick} type="button" aria-label="Понравилось"></button>
-                    <span className="element__likeNumber">{card.likes.lenght}</span>
+                    <span className="element__likeNumber">{card.likes.length}</span>
                 </div>
             </div>
         </article>

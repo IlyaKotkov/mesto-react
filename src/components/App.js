@@ -56,7 +56,7 @@ export default function App() {
       setCurrentUser(updateUser)
       closeAllPopups()
     })
-    .catch(err => console.log(err))
+      .catch(err => console.log(err))
   }
 
   const closeAllPopups = () => {
@@ -66,9 +66,25 @@ export default function App() {
     setSelectedCard(null)
   }
 
+  const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard
+
+  useEffect(() => {
+    function closeByEscape(evt) {
+      if (evt.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+    if (isOpen) {
+      document.addEventListener('keydown', closeByEscape);
+      return () => {
+        document.removeEventListener('keydown', closeByEscape);
+      }
+    }
+  }, [isOpen])
+
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
-    api.setLike(card._id, !isLiked).then((newCard) => {
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
     })
       .catch(err => console.log(err))
