@@ -73,15 +73,15 @@ class Api {
         return this._response(res)
     }
 
-    editAvatar(data) {
-        console.log(data.avatar)
-        return fetch(`${this._baseUrl}/users/me/avatar`, {
+    async editAvatar(data) {
+        const res = await fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-                avatar: data.avatarInput
+                avatar: data
             })
-        }).then(this._response)
+        });
+        return this._response(res);
     };
     
 }
