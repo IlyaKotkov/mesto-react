@@ -13,8 +13,10 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
     }
 
     useEffect(() => {
-        avatarRef.current.value = ''
-    })
+        if(!isOpen) {
+            avatarRef.current.value = ''
+        }
+    }, [isOpen])
 
     return (
         <PopupWithForm

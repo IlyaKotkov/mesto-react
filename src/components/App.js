@@ -56,6 +56,7 @@ export default function App() {
       setCurrentUser(updateUser)
       closeAllPopups()
     })
+    .catch(err => console.log(err))
   }
 
   const closeAllPopups = () => {

@@ -21,7 +21,7 @@ export default function Card({card, onCardClick, onCardLike, onCardDelete}) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
     
     return (
-        <article className="element" key={card.cardId}>
+        <article className="element">
            {isOwn &&<button className="element__deleteButton" onClick={handleDeleteClick} aria-label="удалить" type="button"/>}
             <img className="element__image" src={card.link} alt={card.name} onClick={handleClick} />
             <div className="element__container">

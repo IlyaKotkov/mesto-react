@@ -20,7 +20,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   useEffect(() => {
     setName(currentUser.name)
     setDescription(currentUser.about)
-  }, [currentUser])
+  }, [currentUser, isOpen])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -38,7 +38,6 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       onClose={onClose}
       onSubmit={handleSubmit}
     >
-      <>
         <input name="name" id="card-popup-name-profile"
           className="popup__input popup__input_type_name"
           type="text"
@@ -60,7 +59,6 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
           required
         />
         <span className="card-popup-job-error popup__error" />
-      </>
     </PopupWithForm>
   )
 }
